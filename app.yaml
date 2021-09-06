@@ -1,0 +1,18 @@
+runtime: nodejs12
+
+instance_class: F1
+
+service: default
+
+handlers:
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+
+  - url: /(.*)
+    static_files: dist/\1
+    upload: dist/(.*)
+
+env_variables:
+  HOST: "0.0.0.0"
+  NODE_ENV: "development"

@@ -1,0 +1,44 @@
+# Refer https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: dev-deploy
+
+# Execute workflow on push and pull request to any branch
+on:
+  push:
+    branches:
+      - master
+
+# environment variables
+env:
+  # see https://cloud.google.com/sdk/docs/release-notes
+  GCLOUD_VERSION: 355.0.0
+  NODE_ENV: development
+
+jobs:
+  setup-build-publish-deploy:
+    name: Build & Deploy to Development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Setup node
+        uses: actions/setup-node@master
+        with:
+          node-version: 12
+
+      - name: Install dependencies
+        run: NODE_ENV=${{ env.NODE_ENV }} yarn --frozen-lockfile
+
+      - name: Setup gcloud cli
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: ${{ env.GCLOUD_VERSION }}
+          service_account_key: ${{ secrets.GCP_DEV_NISHIZAWA_PROJECT_KEY }}
+
+      - name: Build
+        run: NODE_ENV=${{ env.NODE_ENV }} yarn generate
+
+      - name: Deploy
+        run: gcloud app deploy app.yaml --project=$PROJECT_ID
+        env:
+          PROJECT_ID: ${{ secrets.GCP_DEV_NISHIZAWA_PROJECT_ID }}
