@@ -1,0 +1,51 @@
+name: Feature request
+description: 機能追加・改修用のissueテンプレート
+labels: "feature"
+title: "✨ "
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 機能・改修内容の説明
+      description: 機能、もしくは改修内容に関する説明を記述してください。
+      value: |
+        - ### どんな機能ですか？
+        - ### 何故その機能を改修するのですか？
+    validations:
+      required: true
+
+  - type: input
+    id: screen_name
+    attributes:
+      label: 画面名
+    validations:
+      required: true
+
+  - type: textarea
+    id: ui_design
+    attributes:
+      label: デザイン
+      placeholder: |
+        Figmaのリンク等
+        
+  - type: textarea
+    id: system_design
+    attributes:
+      label: システム設計
+      placeholder: |
+        システム構成図等
+
+  - type: textarea
+    id: todo
+    attributes:
+      label: Todo
+      value: |
+        - [ ] Task1
+        - [ ] Task2
+        - [ ] Task3
+
+  - type: textarea
+    id: attention
+    attributes:
+      label: 注意事項
