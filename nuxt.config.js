@@ -33,9 +33,9 @@ export default {
     ]
   },
 
-  router: {
-    middleware: ['authenticator']
-  },
+  // router: {
+  //   middleware: ['authenticator']
+  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
